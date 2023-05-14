@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def filter_and_remove(df, name):
     # filter the dataframe based on the "name" column matching the specified value
@@ -26,3 +27,17 @@ def change_id(df):
     new_df['periodID'] = new_df['periodID'].map(period_dict) + 1
 
     return new_df
+
+def summary_statistics_summary(data):
+    summary_stats = data.describe().transpose()
+    summary_stats_summary = summary_stats.describe()
+    
+    # Rename columns and index
+    summary_stats_summary.columns = ['Count', 'Mean', 'Standard Deviation', 'Minimum', '25th Percentile', 'Median', '75th Percentile', 'Maximum']
+    summary_stats_summary.index = ['Statistic Count', 'Statistic Mean', 'Statistic Standard Deviation', 'Statistic Minimum', 'Statistic 25th Percentile', 'Statistic Median', 'Statistic 75th Percentile', 'Statistic Maximum']
+    
+    # Round values and remove decimals
+    summary_stats_summary = summary_stats_summary.round(0).astype(int)
+    
+    return summary_stats_summary
+
